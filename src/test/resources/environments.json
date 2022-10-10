@@ -1,0 +1,5 @@
+{
+  "prod": {
+    "BASE_URL": "https://www.amazon.in/"
+  }
+}
