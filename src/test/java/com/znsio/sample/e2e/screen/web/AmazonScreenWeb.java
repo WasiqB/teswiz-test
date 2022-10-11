@@ -36,7 +36,7 @@ public class AmazonScreenWeb extends AmazonScreen {
         return resultRows.stream ()
             .map (ProductItem::new)
             .filter (e -> e.getTitle ()
-                .equals (productName))
+                .contains (productName))
             .collect (toList ())
             .get (index);
     }

@@ -28,20 +28,26 @@ public class AmazonBusiness {
         setCurrentDriverForUser (currentUserPersona, currentPlatform, this.context);
     }
 
-    public AmazonBusiness searchForIPhone () {
+    public AmazonBusiness searchFor (final String productName) {
         this.amazon = AmazonScreen.get ();
-        final var product = this.amazon.searchFor ("iPhone 13 Pro", 0);
+        final var product = this.amazon.searchFor (productName, 0);
         this.context.addTestState ("product", product);
-        assertThat (product.getPrice ()).as ("Product Price")
-            .isEqualTo ("1,06,900");
         return this;
     }
 
     public void verifyAddToCart () {
-        this.productDetail.addToCart ();
+        final var cartScreen = this.productDetail.addToCart ();
+        final var expectedTitle = this.context.getTestState ("productTitle")
+            .toString ();
+        final var expectedPrice = this.context.getTestState ("productPrice")
+            .toString ();
+        assertThat (cartScreen.title ()).as ("Product Title")
+            .isEqualTo (expectedTitle);
+        assertThat (cartScreen.price ()).as ("Product Price")
+            .isEqualTo (expectedPrice);
     }
 
-    public AmazonBusiness verifySearchedProduct () {
+    public void verifySearchedProduct () {
         final var product = (ProductItem) this.context.getTestState ("product");
         this.context.addTestState ("productTitle", product.getTitle ());
         this.context.addTestState ("productPrice", product.getPrice ());
@@ -53,7 +59,5 @@ public class AmazonBusiness {
             .isEqualTo (title);
         assertThat (this.productDetail.price ()).as ("Product price")
             .isEqualTo (price);
-
-        return this;
     }
 }

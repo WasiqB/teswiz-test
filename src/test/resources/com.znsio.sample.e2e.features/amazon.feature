@@ -15,6 +15,6 @@ Feature: Amazon site scenario
 
   @web
   Scenario: Verify product add to cart scenario
-    Given I search for "iPhone 13" on Amazon
+    Given I search for "iPhone 13 Pro" on Amazon
     When I add the first product to cart
     Then the same product should be available in the cart

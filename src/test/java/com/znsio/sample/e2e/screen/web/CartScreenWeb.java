@@ -7,11 +7,23 @@ import org.openqa.selenium.By;
 public class CartScreenWeb extends CartScreen {
     private final Driver driver;
     private final By     productPrice = By.cssSelector (
-        "div.sc-list-item-content div.sc-item-content-group:last-child ul div.sc-item-price-block");
+        "form#activeCartViewForm div.sc-list-item-content span.sc-product-price");
     private final By     productTitle = By.cssSelector (
-        "div.sc-list-item-content div.sc-item-content-group:last-child ul span.a-truncate-full");
+        "form#activeCartViewForm div.sc-list-item-content span.sc-product-title");
 
     public CartScreenWeb (final Driver driver) {
         this.driver = driver;
+    }
+
+    @Override
+    public String price () {
+        return this.driver.findElement (this.productPrice)
+            .getText ();
+    }
+
+    @Override
+    public String title () {
+        return this.driver.findElement (this.productTitle)
+            .getText ();
     }
 }

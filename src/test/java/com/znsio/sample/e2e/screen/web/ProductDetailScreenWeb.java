@@ -1,5 +1,7 @@
 package com.znsio.sample.e2e.screen.web;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import com.znsio.e2e.tools.Driver;
 import com.znsio.sample.e2e.screen.CartScreen;
 import com.znsio.sample.e2e.screen.ProductDetailScreen;
@@ -8,6 +10,7 @@ import org.openqa.selenium.By;
 public class ProductDetailScreenWeb extends ProductDetailScreen {
     private final By     addToCartButton = By.id ("add-to-cart-button");
     private final By     cartButton      = By.cssSelector ("form#attach-view-cart-button-form input");
+    private final By     cartPrice       = By.id ("attach-accessory-cart-subtotal");
     private final Driver driver;
     private final By     price           = By.cssSelector (
         "div#corePriceDisplay_desktop_feature_div span.a-price-whole");
@@ -19,8 +22,11 @@ public class ProductDetailScreenWeb extends ProductDetailScreen {
 
     @Override
     public CartScreen addToCart () {
+        final var price = price ();
         this.driver.findElement (this.addToCartButton)
             .click ();
+        assertThat (this.driver.findElement (this.cartPrice)
+            .getText ()).contains (price);
         this.driver.findElement (this.cartButton)
             .click ();
         return CartScreen.get ();

@@ -24,4 +24,8 @@ public abstract class CartScreen {
         }
         throw new NotImplementedException (SCREEN_NAME + " is not implemented in " + platform);
     }
+
+    public abstract String price ();
+
+    public abstract String title ();
 }
