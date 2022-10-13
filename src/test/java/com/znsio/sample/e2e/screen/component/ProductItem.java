@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 public class ProductItem {
     private final WebElement item;
     private final By         price = By.cssSelector ("span.a-price-whole");
-    private final By         title = By.cssSelector ("h2");
+    private final By         title = By.cssSelector ("h2 > a");
 
     public ProductItem (final WebElement item) {
         this.item = item;

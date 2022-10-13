@@ -10,8 +10,7 @@ Feature: Amazon site scenario
 #  - go to cart
 #  - validate the same product is in the cart
 
-#  CONFIG=./configs/theapp_local_config.properties PLATFORM=web TAG=theapp ./gradlew run
-#  CONFIG=./configs/theapp_local_config.properties PLATFORM=android TAG=theapp ./gradlew run
+#  CONFIG=./configs/amazon-config.properties PLATFORM=web TAG=web ./gradlew run
 
   @web
   Scenario: Verify product add to cart scenario

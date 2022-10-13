@@ -23,24 +23,24 @@ public class ProductDetailScreenWeb extends ProductDetailScreen {
     @Override
     public CartScreen addToCart () {
         final var price = price ();
-        this.driver.findElement (this.addToCartButton)
+        this.driver.waitTillElementIsPresent (this.addToCartButton)
             .click ();
-        assertThat (this.driver.findElement (this.cartPrice)
+        assertThat (this.driver.waitTillElementIsPresent (this.cartPrice)
             .getText ()).contains (price);
-        this.driver.findElement (this.cartButton)
+        this.driver.waitTillElementIsPresent (this.cartButton)
             .click ();
         return CartScreen.get ();
     }
 
     @Override
     public String price () {
-        return this.driver.findElement (this.price)
+        return this.driver.waitTillElementIsPresent (this.price)
             .getText ();
     }
 
     @Override
     public String title () {
-        return this.driver.findElement (this.title)
+        return this.driver.waitTillElementIsPresent (this.title)
             .getText ();
     }
 }

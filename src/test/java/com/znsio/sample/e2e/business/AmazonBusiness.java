@@ -1,38 +1,33 @@
 package com.znsio.sample.e2e.business;
 
-import static com.znsio.e2e.runner.Runner.getSoftAssertion;
-import static com.znsio.e2e.runner.Runner.getTestExecutionContext;
-import static com.znsio.e2e.runner.Runner.setCurrentDriverForUser;
-import static java.lang.Thread.currentThread;
-import static org.assertj.core.api.Assertions.assertThat;
-
 import com.context.TestExecutionContext;
 import com.znsio.e2e.entities.Platform;
 import com.znsio.sample.e2e.screen.AmazonScreen;
 import com.znsio.sample.e2e.screen.ProductDetailScreen;
 import com.znsio.sample.e2e.screen.component.ProductItem;
-import org.assertj.core.api.SoftAssertions;
+
+import static com.znsio.e2e.runner.Runner.getTestExecutionContext;
+import static com.znsio.e2e.runner.Runner.setCurrentDriverForUser;
+import static java.lang.Thread.currentThread;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class AmazonBusiness {
     private       AmazonScreen         amazon;
     private final TestExecutionContext context;
     private       ProductDetailScreen  productDetail;
-    private final SoftAssertions       softly;
 
     public AmazonBusiness () {
         final long threadId = currentThread ().getId ();
         this.context = getTestExecutionContext (threadId);
-        this.softly = getSoftAssertion (threadId);
         final String currentUserPersona = "me";
         final Platform currentPlatform = Platform.web;
         setCurrentDriverForUser (currentUserPersona, currentPlatform, this.context);
     }
 
-    public AmazonBusiness searchFor (final String productName) {
+    public void searchFor (final String productName) {
         this.amazon = AmazonScreen.get ();
         final var product = this.amazon.searchFor (productName, 0);
         this.context.addTestState ("product", product);
-        return this;
     }
 
     public void verifyAddToCart () {
@@ -43,8 +38,8 @@ public class AmazonBusiness {
             .toString ();
         assertThat (cartScreen.title ()).as ("Product Title")
             .isEqualTo (expectedTitle);
-        assertThat (cartScreen.price ()).as ("Product Price")
-            .isEqualTo (expectedPrice);
+        assertThat (cartScreen.price ().trim()).as ("Product Price")
+            .contains (expectedPrice);
     }
 
     public void verifySearchedProduct () {

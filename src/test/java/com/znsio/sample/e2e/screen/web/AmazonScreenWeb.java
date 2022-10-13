@@ -1,12 +1,12 @@
 package com.znsio.sample.e2e.screen.web;
 
-import static java.util.stream.Collectors.toList;
-
 import com.znsio.e2e.tools.Driver;
 import com.znsio.sample.e2e.screen.AmazonScreen;
 import com.znsio.sample.e2e.screen.ProductDetailScreen;
 import com.znsio.sample.e2e.screen.component.ProductItem;
 import org.openqa.selenium.By;
+
+import static java.util.stream.Collectors.toList;
 
 public class AmazonScreenWeb extends AmazonScreen {
     private final Driver driver;
